@@ -42,15 +42,15 @@ function! s:Source.get_arg(...) "{{{
 endfunction "}}}
 
 
-function! transformer#source#create()
+function! transformer#source#create() "{{{
   " XXX now, 's:Source' without private variable, so copy useless.
   " return copy(s:Source)
   return s:Source
-endfunction
+endfunction "}}}
 
 
 " Execute Source
-function! transformer#source#exec(s, state)
+function! transformer#source#exec(s, state) "{{{
   let type = a:s.type
   let arg = a:s.get_arg()
 
@@ -94,7 +94,7 @@ function! transformer#source#exec(s, state)
 
   endif
   return ret
-endfunction
+endfunction "}}}
 
 
 let &cpo = s:save_cpo

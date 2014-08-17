@@ -7,25 +7,25 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! transformer#cmd(cmd)
+function! transformer#cmd(cmd) "{{{
   return transformer#tf#cmd(a:cmd)
-endfunction
+endfunction "}}}
 
-function! transformer#map(map)
+function! transformer#map(map) "{{{
   return transformer#tf#map(a:map)
-endfunction
+endfunction "}}}
 
-function! transformer#source()
+function! transformer#source() "{{{
   return transformer#source#create()
-endfunction
+endfunction "}}}
 
-function! transformer#middle()
+function! transformer#middle() "{{{
   return transformer#middleware#create()
-endfunction
+endfunction "}}}
 
-function! transformer#state()
+function! transformer#state() "{{{
   return transformer#state#create()
-endfunction
+endfunction "}}}
 
 function! transformer#obj(type) "{{{
   return {'_type': a:type}

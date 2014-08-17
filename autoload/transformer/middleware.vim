@@ -41,14 +41,14 @@ function! s:Middleware.get_arg(...) "{{{
 endfunction "}}}
 
 
-function! transformer#middleware#create()
+function! transformer#middleware#create() "{{{
   " XXX now, 's:Middleware' without private variable, so copy useless.
   return s:Middleware
-endfunction
+endfunction "}}}
 
 
 " Execute Middle
-function! transformer#middleware#exec(m, data, state)
+function! transformer#middleware#exec(m, data, state) "{{{
   let data = a:data
   let type = a:m.type
   let arg = a:m.get_arg(data)
@@ -101,7 +101,7 @@ function! transformer#middleware#exec(m, data, state)
 
   endif
   return ret
-endfunction
+endfunction "}}}
 
 
 let &cpo = s:save_cpo

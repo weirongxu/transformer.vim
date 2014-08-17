@@ -7,20 +7,20 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! transformer#tf#cmd(cmd)
+function! transformer#tf#cmd(cmd) "{{{
   let tf = s:TF
   let tf.arg = a:cmd
   let tf.type = 'cmd'
   return deepcopy(tf)
-endfunction
+endfunction "}}}
 
 
-function! transformer#tf#map(map)
+function! transformer#tf#map(map) "{{{
   let tf = s:TF
   let tf.arg = a:map
   let tf.type = 'map'
   return deepcopy(tf)
-endfunction
+endfunction "}}}
 
 
 let s:TF = {}
@@ -28,23 +28,23 @@ let s:TFlist = {}
 let s:TFidentity = 1
 
 
-function! s:TF.subcmd(scmd, ...)
+function! s:TF.subcmd(scmd, ...) "{{{
   " TODO
   " return transformer#subcmd#new(a:scmd, a:000)
-endfunction
+endfunction "}}}
 
 
-function! s:TF.src(src)
+function! s:TF.src(src) "{{{
   let self.source = a:src
   return self
-endfunction
+endfunction "}}}
 
 
 let s:TF.is_activate = 0
 let s:TF.middle = []
 
 
-function! s:TF.exec(...)
+function! s:TF.exec(...) "{{{
   if transformer#util#type(a:1) == 'source'
     let self.source = a:1
     let self.middle = self.middle + a:000[1:]
@@ -54,10 +54,10 @@ function! s:TF.exec(...)
   call s:activate(self)
   let self.is_activate = 1
   return self
-endfunction
+endfunction "}}}
 
 
-function! s:activate(tf)
+function! s:activate(tf) "{{{
   let len = len(s:TFlist)
   let s:TFlist[s:TFidentity] = a:tf
   let arg = a:tf.arg
@@ -69,10 +69,10 @@ function! s:activate(tf)
     " TODO register map
   endif
   let s:TFidentity = s:TFidentity + 1
-endfunction
+endfunction "}}}
 
 
-function! s:execute(idx, is_range)
+function! s:execute(idx, is_range) "{{{
   let state = transformer#state()
   let state.is_range = a:is_range
 
@@ -87,7 +87,7 @@ function! s:execute(idx, is_range)
       let data = transformer#middleware#exec(m, data, state)
     endif
   endfor
-endfunction
+endfunction "}}}
 
 
 let &cpo = s:save_cpo

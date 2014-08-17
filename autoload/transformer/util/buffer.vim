@@ -35,7 +35,7 @@ function! transformer#util#buffer#put(arg, data) "{{{
   return data
 endfunction "}}}
 
-" function! s:Target.trigger_buffer_new(cont)
+" function! s:Target.trigger_buffer_new(cont) "{{{
 "   let name = empty(self.matchs_name) ?
 "         \ '__TEXT_SHIFT__' : self.matchs_name
 "   let pos =
@@ -48,13 +48,13 @@ endfunction "}}}
 "   setlocal buftype=nofile bufhidden=wipe noswapfile
 "   nnoremap <silent> <buffer> q :bw!<cr>
 "   call setline(1, split(a:cont, '\n'))
-" endfunction
+" endfunction "}}}
 "
-" function! s:Target.trigger_visual(cont)
+" function! s:Target.trigger_visual(cont) "{{{
 "   call setreg(reg,out,reg_type)
 "   silent exe 'norm! gv"'.reg.'p'
 "   call setreg(reg,reg_save,reg_type)
-" endfunction
+" endfunction "}}}
 
 
 let &cpo = s:save_cpo
