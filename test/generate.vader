@@ -1,0 +1,40 @@
+# Test generate object.
+Execute (command/create):
+  let c1 = transformer#cmd('test1')
+  let c2 = transformer#cmd('test2')
+
+Execute (command/assert):
+  AssertEqual c1.arg, 'test1'
+  AssertEqual c2.arg, 'test2'
+
+
+Execute (middleware/initial):
+  let M1 = transformer#middle()
+  let M2 = transformer#middle()
+  let S1 = transformer#source()
+  let S2 = transformer#source()
+  let pipe = M1.pipe('test')
+  let buf = M1.buf('%', 'nv')
+  let tmp = M2.tmp('test3.ext')
+  let reg1 = S1.reg('"')
+  let reg2 = S2.reg("'")
+
+Execute (middleware/assert/pipe1):
+  AssertEqual pipe.type, 'pipe'
+  AssertEqual pipe.args, ['test']
+
+Execute (middleware/assert/buf):
+  AssertEqual buf.type, 'buf'
+  AssertEqual buf.args, ['%', 'nv']
+
+Execute (middleware/assert/tmp):
+  AssertEqual tmp.type, 'tmp'
+  AssertEqual tmp.args, ['test3.ext']
+
+Execute (middleware/assert/reg1):
+  AssertEqual reg1.type, 'reg'
+  AssertEqual reg1.args, ['"']
+
+Execute (middleware/assert/reg2):
+  AssertEqual reg2.type, 'reg'
+  AssertEqual reg2.args, ["'"]

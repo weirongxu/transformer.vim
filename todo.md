@@ -25,7 +25,17 @@ Pipe
 
 ### Start
 
-#### :TF [-buffer]
+#### :TF -auto
+    in: select next key
+        b: buffer
+        c: command -> input command
+        f: file -> input file path
+        ii: input
+        il: inputlist
+        id: inputdialog
+        ic: confirm
+        ig: getchar
+#### :TF -buffer
     in: from whole buffer
         If set tf.in(), middle will read in data from tf.in()
         Example:
@@ -65,32 +75,32 @@ Pipe
 
 ### Middle
 
-#### pipe
+#### pipe (M.pipe)
     M.pipe('exec').out(M.sh())
 
     via pipe run shell command
     out-from: shell output
 
-#### function
+#### function (M.func, M.fn)
     M.func('expand("%:p")')
     M.fn('func-name') == M.func('func-name(@{data})')
 
     out-from: return
 
-#### vimscript
+#### vimscript (M.exec)
     M.exec('"line:".getline(".")') -ret
 
     out-from: assignment
 
-#### string
-    M.string('I like vim.')
+#### data (M.data)
+    M.data('I like vim.')
 
-#### null
+#### null (M.null)
     M.null()
 
     out: null, Don't handle input message
 
-#### shell
+#### shell (M.sh)
     M.sh().out(M.sh())
     M.sh('@{data} @{tmp}')
 
@@ -98,39 +108,51 @@ Pipe
     otherwise command is first argument.
     out-from: shell output
 
-#### tmp
+#### tmp (M.tmp)
     M.tmp('filename.ext')
 
     write pipe message to temporary file.
     out: file content, @{path}, @{name}
 
-#### file
+#### file (M.file)
     M.file('path/to/filename')
 
     write pipe message to specified file.
     out: file content, @{path}, @{name}
 
-#### register
+#### register (M.reg)
     M.reg().out(M.reg())
     M.reg('a')
 
     write pipe message to register
     out: register content, @{register}
 
-#### buffer[new]
+#### buffer[new] (M.buf)
     b bn bs bv bt ba
 
     M.buf('%').out(M.buf('%'))
-    M.buf('%:5')                    out: buffer fifth line
-    M.buf('%:5,')                   out: buffer fifth line and after
-    M.buf('%:1,5')                  out: buffer 1-5 line
+    M.buf('%5')                     out: buffer fifth line
+    M.buf('%5,9')                   out: buffer 5 to 9 line
     M.buf('n')                      out: new buffer
+    M.buf('n&')                     out: new buffer on backstage
     M.buf('ns')                     out: new buffer split
+    M.buf('ns&')                    out: new buffer split on backstage
     M.buf('nv')                     out: new buffer vsplit
     M.buf('nu5')                    out: new buffer in upward and height is 5
     M.buf('nr5')                    out: new buffer in rightward and width is 5
     M.buf('nd5')                    out: new buffer in downward and height is 5
     M.buf('nl5')                    out: new buffer in leftward and width is 5
 
-#### select
+#### select (M.select)
     M.select()
+
+### String Interpolation
+
+* normal
+    * in: @{data}
+    * out: @{tmp_path}
+* tmp, file
+    * out: @{path} @{name}
+* register
+    * out: @{reg}
+

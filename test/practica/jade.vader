@@ -1,0 +1,82 @@
+# Jade
+
+# jade 2 html
+Given (command/jade/pipe1):
+  a(href='#')
+    h1 title
+
+Execute (command/jade/pipe1):
+  call transformer#cmd('Jade')
+    \.src(S.buf('%'))
+    \.exec(
+    \   M.pipe('jade --pretty'),
+    \   M.buf('%')
+    \)
+  Jade
+
+Expect (command/exec/pipe1/result):
+  <a href="#">
+    <h1>title</h1></a>
+
+
+# html2jade visual
+Given (map/html2jade/visual):
+  <a href="#">
+    <h1>title</h1></a>
+
+Execute (map/html2jade/visual):
+  call transformer#map("\<c-t>")
+    \.src(S.buf('%'))
+    \.exec(
+    \   M.pipe('html2jade - --donotencode --bodyless'),
+    \   M.buf('%')
+    \)
+
+Do (map/html2jade/visual):
+  \<c-t>
+
+Expect (map/html2jade/visual/result):
+  a(href='#')
+    h1 title
+
+# html2jade smart
+Given (map/html2jade/visual smart):
+  <div>
+    <a href="#">
+      <h1>title</h1>
+    </a>
+  </div>
+
+Execute (map/html2jade/visual smart):
+  call transformer#map("\<c-t>")
+    \.src(S.smart())
+    \.exec(
+    \   M.pipe('html2jade - --donotencode --bodyless'),
+    \   M.smart('%')
+    \)
+
+Do (map/html2jade/visual smart):
+  jV2j\<c-t>
+
+Expect (map/html2jade/pipe1/visual smart):
+  <div>
+  a(href='#')
+    h1 title
+  
+  </div>
+
+# smart %
+Given (map/html2jade/visual/smart %):
+  <div>
+    <a href="#">
+      <h1>title</h1>
+    </a>
+  </div>
+
+Do (map/html2jade/visual/smart %):
+  \<c-t>%
+
+Expect (map/html2jade/visual/smart %):
+  div
+    a(href='#')
+      h1 title

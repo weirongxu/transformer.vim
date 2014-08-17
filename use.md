@@ -1,7 +1,9 @@
 # Usage
 
     let tf = transformer#map("\<c-r>")
+    let tf = transformer#map("\<Plug>hello")
     let tf = transformer#cmd("Trans")
+    let M = transformer#source()
     let M = transformer#middle()
 
     call tf.in('reg')

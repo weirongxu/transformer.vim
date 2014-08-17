@@ -1,7 +1,7 @@
 # Support
 
 ## TEXT
-* text2ISO
+* text2ISO (HTML ISO-8859-1)
 * ISO2text
 
 * text2ISOAsc

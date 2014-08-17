@@ -1,0 +1,6 @@
+Execute (create/source middle):
+  let M = transformer#middle()
+  let S = transformer#source()
+
+Include (marked): practica/marked.vader
+Include (jade): practica/jade.vader
