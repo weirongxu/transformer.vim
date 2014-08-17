@@ -8,7 +8,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 if !exists('g:transformer#cache_dir')
-  let g:transformer#cache_dir = expand("~/.cache/transformer")
+  let g:transformer#cache_dir = expand("~/.cache/transformer-vim")
 endif
 if !exists('g:transformer#pipe_dir')
   let g:transformer#pipe_dir = expand("~/.cache/transformer/pipe")
