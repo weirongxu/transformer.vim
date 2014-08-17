@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 function! transformer#util#buffer#get(arg) "{{{
   let arg = a:arg
   if arg == '%'
@@ -46,3 +55,8 @@ endfunction "}}}
 "   silent exe 'norm! gv"'.reg.'p'
 "   call setreg(reg,reg_save,reg_type)
 " endfunction
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

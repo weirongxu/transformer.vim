@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 let s:pwd_path = expand("<sfile>:p:h")
 
 function! transformer#util#pipe#run(cmd, cont) "{{{
@@ -12,3 +21,8 @@ function! transformer#util#pipe#run(cmd, cont) "{{{
   execute "cd " . o_pwd
   return ret
 endfunction "}}}
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

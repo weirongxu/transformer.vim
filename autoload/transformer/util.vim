@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 let s:V = vital#of('transformer')
 
 function! transformer#util#pipe(cmd, cont) "{{{
@@ -56,3 +65,8 @@ function! transformer#util#selected_put(data) "{{{
     call setreg('z', save_z, save_z_type)
   endtry
 endfunction "}}}
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

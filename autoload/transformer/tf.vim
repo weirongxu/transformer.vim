@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 function! transformer#tf#cmd(cmd)
   let tf = s:TF
   let tf.arg = a:cmd
@@ -79,3 +88,8 @@ function! s:execute(idx, is_range)
     endif
   endfor
 endfunction
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

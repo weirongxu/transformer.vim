@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 " Create Source
 let s:Source = {}
 
@@ -86,3 +95,8 @@ function! transformer#source#exec(s, state)
   endif
   return ret
 endfunction
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

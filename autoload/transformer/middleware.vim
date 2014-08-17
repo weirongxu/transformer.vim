@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 " Create Middle
 let s:Middleware = transformer#obj('middle')
 
@@ -93,3 +102,8 @@ function! transformer#middleware#exec(m, data, state)
   endif
   return ret
 endfunction
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker

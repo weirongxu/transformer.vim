@@ -1,3 +1,12 @@
+"=============================================================================
+" FILE: transformer.vim
+" AUTHOR:  WeiRong Xu <weirongxu.raidou@gmail.com>
+" License: MIT license
+"=============================================================================
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 " Smart Get
 function! transformer#util#smart#get(state) "{{{
   if a:state.is_range
@@ -59,3 +68,8 @@ function! s:getchar(msg) "{{{
   echo a:msg
   return nr2char(getchar())
 endfunction "}}}
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+" vim: foldmethod=marker
