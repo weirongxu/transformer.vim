@@ -1,0 +1,25 @@
+# Coffee
+
+# js2coffee
+Given (command/js2coffee/pipe):
+  var n = 123
+  function fuc() {
+    console.dir(n);
+  }
+
+Execute (command/js2coffee/pipe):
+  call transformer#cmd('Js2coffee')
+      \.src(S.smart())
+      \.exec(
+      \   M.pipe('js2coffee'),
+      \   M.smart()
+      \)
+
+Do (command/js2coffee/pipe):
+  :Js2coffee\<cr>%
+
+Expect (command/js2coffee/pipe):
+  fuc = ->
+    console.dir n
+    return
+  n = 123

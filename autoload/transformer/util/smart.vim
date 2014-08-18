@@ -65,6 +65,7 @@ endfunction "}}}
 
 
 function! s:getchar(msg) "{{{
+  " FIXME not have to user press entry quit.
   echo a:msg
   return nr2char(getchar())
 endfunction "}}}

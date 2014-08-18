@@ -156,3 +156,5 @@ Pipe
 * register
     * out: @{reg}
 
+### Log
+Error log.

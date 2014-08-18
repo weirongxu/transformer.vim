@@ -4,3 +4,4 @@ Execute (create/source middle):
 
 Include (marked): practica/marked.vader
 Include (jade): practica/jade.vader
+Include (coffee): practica/coffee.vader

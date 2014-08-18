@@ -9,6 +9,7 @@ var spawn = require('child_process').spawn;
 var pro = spawn(
   process.platform === "win32" ? cmd+".cmd" : cmd, args);
 
+// FIXME js2coffee error
 pro.stdout.pipe(process.stdout);
 pro.stderr.pipe(process.stderr);
 
