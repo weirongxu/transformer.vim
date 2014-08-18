@@ -34,7 +34,7 @@ function! s:cat(cmd) "{{{
 endfunction "}}}
 
 function! s:node(cmd, node) "{{{
-  return system(a:node.' '.s:pwd_path.'/pipe/pipe.js pipe '.a:cmd)
+  return s:Process.system(a:node.' '.s:pwd_path.'/pipe/pipe.js pipe '.a:cmd)
 endfunction "}}}
 
 function! s:cache_decorator(cont, func, ...) "{{{
