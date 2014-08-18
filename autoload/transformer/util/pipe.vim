@@ -11,9 +11,8 @@ let s:pwd_path = expand("<sfile>:p:h")
 let s:Process = vital#of('transformer').import('Process')
 
 function! transformer#util#pipe#run(cmd, cont) "{{{
-  if 0 "has('python')
-    " TODO
-    return s:python(a:cmd)
+  if has('python')
+    return s:python(a:cmd, a:cont)
   elseif s:Process.has_vimproc()
     return s:Process.system(a:cmd, a:cont)
   elseif executable('cat') && executable('sh')
@@ -25,8 +24,17 @@ function! transformer#util#pipe#run(cmd, cont) "{{{
   endif
 endfunction "}}}
 
-function! s:python(cmd) "{{{
-  " TODO
+function! s:python(cmd, cont) "{{{
+  let cmd = a:cmd
+  let cont = a:cont
+  py import subprocess, vim
+  py cmd = vim.eval('cmd')
+  py cont = vim.eval('cont')
+  py p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+  py out, err = p.communicate(input=cont)
+  " TODO log err
+  py vim.command("let ret='{}'".format(out.replace("'", "''")))
+  return ret
 endfunction "}}}
 
 function! s:cat(cmd) "{{{
