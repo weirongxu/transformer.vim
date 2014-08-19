@@ -10,19 +10,27 @@ set cpo&vim
 let s:pwd_path = expand("<sfile>:p:h")
 let s:Process = vital#of('transformer').import('Process')
 
-function! transformer#util#pipe#run(cmd, cont) "{{{
-  if has('python')
-    return s:python(a:cmd, a:cont)
-  elseif s:Process.has_vimproc()
+if has('python')
+  function! transformer#util#pipe#run(cmd, cont) "{{{
+      return s:python(a:cmd, a:cont)
+  endfunction "}}}
+elseif s:Process.has_vimproc()
+  function! transformer#util#pipe#run(cmd, cont) "{{{
     return s:Process.system(a:cmd, a:cont)
-  elseif executable('cat') && executable('sh')
+  endfunction "}}}
+elseif executable('cat') && executable('sh')
+  function! transformer#util#pipe#run(cmd, cont) "{{{
     return s:cache_decorator(a:cont, 'cat', a:cmd)
-  elseif executable('node')
+  endfunction "}}}
+elseif executable('node')
+  function! transformer#util#pipe#run(cmd, cont) "{{{
     return s:cache_decorator(a:cont, 'node', a:cmd, 'node')
-  elseif executable('nodejs')
+  endfunction "}}}
+elseif executable('nodejs')
+  function! transformer#util#pipe#run(cmd, cont) "{{{
     return s:cache_decorator(a:cont, 'node', a:cmd, 'nodejs')
-  endif
-endfunction "}}}
+  endfunction "}}}
+endif
 
 function! s:python(cmd, cont) "{{{
   let cmd = a:cmd
