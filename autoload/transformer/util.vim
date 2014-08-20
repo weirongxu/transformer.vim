@@ -50,16 +50,28 @@ endfunction "}}}
 
 " Selected Handle
 function! transformer#util#selected_get() "{{{
-  return s:V.import('Vim.Buffer').get_selected_text()
+  " return s:V.import('Vim.Buffer').get_selected_text()
+  let save_z = getreg('z', 1)
+  let save_z_type = getregtype('z')
+
+  try
+    silent normal! gv"zy
+    return @z
+  finally
+    call setreg('z', save_z, save_z_type)
+  endtry
 endfunction "}}}
 
 
 function! transformer#util#selected_put(data) "{{{
+  " TODO
+  " return s:V.import('Vim.Buffer').put_selected_text()
   let save_z = getreg('z', 1)
   let save_z_type = getregtype('z')
   call setreg('z', a:data, save_z_type)
+
   try
-    normal! gv"zp
+    silent normal! gv"zp
     return @z
   finally
     call setreg('z', save_z, save_z_type)

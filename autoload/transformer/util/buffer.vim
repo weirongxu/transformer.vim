@@ -10,8 +10,10 @@ set cpo&vim
 function! transformer#util#buffer#get(arg) "{{{
   let arg = a:arg
   if arg == '%'
+    " M.buf('%')
     return join(getline('^', '$'), "\n")
   elseif arg =~? '\v^\%(\d+|[\.\^\$])'
+    " M.buf('%2')
     let line = matchstr(arg, '\v^\%\zs(\d+|[\.\^\$])\ze')
     return join(getline(line), "\n")
   endif
@@ -22,9 +24,11 @@ function! transformer#util#buffer#put(arg, data) "{{{
   let data = a:data
 
   if arg == '%'
+    " M.buf('%')
     %d
     call setline(1, split(data, "\n"))
   elseif arg =~? '\v^\%(\d+|[\$\.\^])'
+    " M.buf('%2')
     let line = matchstr(arg, '\v^\%\zs(\d+|[\.\^\$])\ze')
     call setline(line, split(data, "\n"))
   endif

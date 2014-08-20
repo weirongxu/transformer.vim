@@ -8,9 +8,7 @@ set cpo&vim
 
 
 " Create Source
-let s:Source = {}
-
-let s:source_type = [
+let s:Source = transformer#ware('source', [
       \   'func', 'fn',
       \   'exec', 'data',
       \   'sh',
@@ -19,28 +17,7 @@ let s:source_type = [
       \   'buf',
       \   'select',
       \   'smart',
-      \ ]
-
-let s:Source._type = 'source'
-
-for type in s:source_type
-  execute join([
-        \ 'function! s:Source.'. type ."(...)",
-        \ '  let s = copy(self)',
-        \ '  let s.type = "'. type .'"',
-        \ '  let s.args = a:000',
-        \ '  return s',
-        \ 'endfunction',
-        \ ], "\n")
-endfor
-
-
-function! s:Source.get_arg(...) "{{{
-  return len(self.args) > 0 ? self.args[0] :
-        \ a:0 > 0 ? a:1 :
-        \ ''
-endfunction "}}}
-
+      \ ])
 
 function! transformer#source#create() "{{{
   " XXX now, 's:Source' without private variable, so copy useless.
@@ -84,7 +61,7 @@ function! transformer#source#exec(s, state) "{{{
     let ret = transformer#util#buffer(arg)
 
   elseif type == 'select'
-    " TODO
+    let ret = transformer#util#selected_get()
 
   elseif type == 'smart'
     let ret = transformer#util#smart(a:state)

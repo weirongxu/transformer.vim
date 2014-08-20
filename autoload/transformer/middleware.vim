@@ -8,9 +8,7 @@ set cpo&vim
 
 
 " Create Middle
-let s:Middleware = transformer#obj('middle')
-
-let s:middleware_type = [
+let s:Middleware = transformer#ware('middle', [
       \   'pipe',
       \   'func', 'fn',
       \   'exec', 'data', 'null',
@@ -20,26 +18,7 @@ let s:middleware_type = [
       \   'buf',
       \   'select',
       \   'smart',
-      \ ]
-
-for type in s:middleware_type
-  execute join([
-        \ 'function! s:Middleware.'. type ."(...)",
-        \ '  let m = copy(self)',
-        \ '  let m.type = "'. type .'"',
-        \ '  let m.args = a:000',
-        \ '  return m',
-        \ 'endfunction',
-        \ ], "\n")
-endfor
-
-
-function! s:Middleware.get_arg(...) "{{{
-  return len(self.args) > 0 ? self.args[0] :
-        \ a:0 > 0 ? a:1 :
-        \ ''
-endfunction "}}}
-
+      \ ])
 
 function! transformer#middleware#create() "{{{
   " XXX now, 's:Middleware' without private variable, so copy useless.
@@ -91,8 +70,8 @@ function! transformer#middleware#exec(m, data, state) "{{{
     let ret = transformer#util#buffer(arg, data)
 
   elseif type == 'select'
-    " TODO
-    "
+    let ret = transformer#util#selected_put(data)
+
   elseif type == 'smart'
     let ret = transformer#util#smart(a:state, a:data)
 
