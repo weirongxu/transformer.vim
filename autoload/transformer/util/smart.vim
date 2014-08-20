@@ -53,6 +53,7 @@ function! transformer#util#smart#put(state, data) "{{{
   elseif a:state.smart_src.type == 'buf'
     let mid = s:buf_src2mid(a:state.smart_src)
   else
+    " XXX
     let mid = s:src2mid(a:state.smart_src)
   endif
   return transformer#middleware#exec(mid, a:data, a:state)

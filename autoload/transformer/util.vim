@@ -7,8 +7,6 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let s:V = vital#of('transformer')
-
 function! transformer#util#pipe(cmd, cont) "{{{
   return transformer#util#pipe#run(a:cmd, a:cont)
 endfunction "}}}
@@ -50,12 +48,30 @@ endfunction "}}}
 
 " Selected Handle
 function! transformer#util#selected_get() "{{{
-  return s:V.import('Vim.Buffer').get_selected_text()
+  " XXX this is hack, It will changed register 0~1
+  let save_z = getreg('"', 1)
+  let save_z_type = getregtype('"')
+
+  try
+    silent normal! gvy
+    return @"
+  finally
+    call setreg('"', save_z, save_z_type)
+  endtry
 endfunction "}}}
 
 
 function! transformer#util#selected_put(data) "{{{
-  return s:V.import('Vim.Buffer').put_selected_text(a:data)
+  " XXX this is hack, It will changed register 0~1
+  let save_z = getreg('"', 1)
+  let save_z_type = getregtype('"')
+  call setreg('"', a:data, save_z_type)
+
+  try
+    silent normal! gvp
+  finally
+    call setreg('"', save_z, save_z_type)
+  endtry
 endfunction "}}}
 
 
