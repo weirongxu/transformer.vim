@@ -62,7 +62,6 @@ Expect (map/html2jade/pipe1/visual smart):
   <div>
   a(href='#')
     h1 title
-  
   </div>
 
 # smart %
