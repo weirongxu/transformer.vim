@@ -27,26 +27,27 @@ endfunction "}}}
 
 
 " Execute Source
-function! transformer#source#exec(s, state) "{{{
-  let type = a:s.type
-  let arg = a:s.get_arg()
+function! transformer#source#exec(data) "{{{
+  let type = a:data.source.type
+  let arg = a:data.source.get_arg()
 
   if type == 'func'
     " TODO get Interpolation
-    exec 'let ret=' arg
+    exec 'let d=' arg
 
   elseif type == 'fn'
-    exec 'let ret=' arg '()'
+    exec 'let d=' arg '()'
 
   elseif type == 'exec'
     " TODO get Interpolation
-    exec 'let ret=' arg
+    exec 'let d=' arg
 
   elseif type == 'data'
-    let ret = arg
+    let d = arg
 
   elseif type == 'sh'
-    let ret = system(arg)
+    let Process = vital#of('transformer').import('Process')
+    let d = Process.system(arg)
 
   elseif type == 'tmp'
     " TODO
@@ -55,22 +56,23 @@ function! transformer#source#exec(s, state) "{{{
     " TODO
 
   elseif type == 'reg'
-    let ret = getreg(arg)
+    let d = getreg(arg)
 
   elseif type == 'buf'
-    let ret = transformer#util#buffer(arg)
+    let d = transformer#util#buffer(arg)
 
   elseif type == 'select'
-    let ret = transformer#util#selected_get()
+    let d = transformer#util#selected_get()
 
   elseif type == 'smart'
-    let ret = transformer#util#smart(a:state)
+    return transformer#util#smart#get(a:data)
 
   else
     throw type." isn't valid source"
 
   endif
-  return ret
+  let a:data.data = d
+  return a:data
 endfunction "}}}
 
 

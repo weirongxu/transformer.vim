@@ -8,13 +8,13 @@ set cpo&vim
 
 
 " Create State
-let s:State = transformer#obj('middle')
+let s:Data = transformer#obj('data')
 
-let s:State.is_range = 0
+let s:Data.is_range = 0
 
-function! transformer#state#create() "{{{
+function! transformer#data#create() "{{{
   " XXX now, 's:State' without private variable, so copy useless.
-  return s:State
+  return s:Data
 endfunction "}}}
 
 

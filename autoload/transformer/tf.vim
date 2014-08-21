@@ -73,18 +73,20 @@ endfunction "}}}
 
 
 function! s:execute(idx, is_range) "{{{
-  let state = transformer#state()
-  let state.is_range = a:is_range
+  let data = transformer#data()
+  let data.is_range = a:is_range
 
   let tf = s:TFlist[a:idx]
-  let source = tf.source
+  let data.source = tf.source
 
-  let data = transformer#source#exec(source, state)
+  let data = transformer#source#exec(data)
   for m in tf.middle
     if transformer#util#type(m) == 'source'
-      let data = transformer#source#exec(m, state)
+      let data.source = m
+      let data = transformer#source#exec(data)
     else
-      let data = transformer#middleware#exec(m, data, state)
+      let data.middle = m
+      let data = transformer#middleware#exec(data)
     endif
   endfor
 endfunction "}}}

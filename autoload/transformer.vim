@@ -23,8 +23,8 @@ function! transformer#middle() "{{{
   return transformer#middleware#create()
 endfunction "}}}
 
-function! transformer#state() "{{{
-  return transformer#state#create()
+function! transformer#data() "{{{
+  return transformer#data#create()
 endfunction "}}}
 
 function! transformer#obj(type) "{{{

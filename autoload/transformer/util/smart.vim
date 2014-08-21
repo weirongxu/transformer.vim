@@ -11,8 +11,8 @@ let s:S = transformer#source#create()
 let s:M = transformer#middleware#create()
 
 " Smart Get
-function! transformer#util#smart#get(state) "{{{
-  if a:state.is_range
+function! transformer#util#smart#get(data) "{{{
+  if a:data.is_range
     let src = s:S.select()
   else
     let c = s:getchar(join([
@@ -28,8 +28,9 @@ function! transformer#util#smart#get(state) "{{{
           \], "\n"))
     let src = s:source(c)
   endif
-  let a:state.smart_src = src
-  return transformer#source#exec(src, a:state)
+  let a:data.smart_src = src
+  let a:data.source = src
+  return transformer#source#exec(a:data)
 endfunction "}}}
 
 
@@ -47,16 +48,17 @@ endfunction "}}}
 
 
 " Smart Put
-function! transformer#util#smart#put(state, data) "{{{
-  if a:state.is_range
-    let mid = s:M.select(a:data)
-  elseif a:state.smart_src.type == 'buf'
-    let mid = s:buf_src2mid(a:state.smart_src)
+function! transformer#util#smart#put(data) "{{{
+  if a:data.is_range
+    let mid = s:M.select()
+  elseif a:data.smart_src.type == 'buf'
+    let mid = s:buf_src2mid(a:data.smart_src)
   else
     " XXX
-    let mid = s:src2mid(a:state.smart_src)
+    let mid = s:src2mid(a:data.smart_src)
   endif
-  return transformer#middleware#exec(mid, a:data, a:state)
+  let a:data.middle = mid
+  return transformer#middleware#exec(a:data)
 endfunction "}}}
 
 

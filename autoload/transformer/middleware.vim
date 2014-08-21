@@ -27,35 +27,36 @@ endfunction "}}}
 
 
 " Execute Middle
-function! transformer#middleware#exec(m, data, state) "{{{
-  let data = a:data
-  let type = a:m.type
-  let arg = a:m.get_arg(data)
+function! transformer#middleware#exec(data) "{{{
+  let data = a:data.data
+  let type = a:data.middle.type
+  let arg = a:data.middle.get_arg(data)
 
   if type == 'pipe'
-    let ret = transformer#util#pipe(arg, data)
+    let d = transformer#util#pipe(arg, data)
 
   elseif type == 'func'
     " TODO get Interpolation
-    exec 'let ret=' arg
+    exec 'let d=' arg
 
   elseif type == 'fn'
     " TODO get Interpolation
-    exec 'let ret=' arg '()'
+    exec 'let d=' arg '()'
 
   elseif type == 'exec'
     " TODO get Interpolation
-    exec 'let ret=' arg
+    exec 'let d=' arg
 
   elseif type == 'data'
-    let ret = arg
+    let d = arg
 
   elseif type == 'null'
     throw "Null Middle Unknown Error"
 
   elseif type == 'sh'
     " TODO get Interpolation
-    let ret = system(arg)
+    let Process = vital#of('transformer').import('Process')
+    let d = Process.system(arg)
 
   elseif type == 'tmp'
     " TODO
@@ -64,22 +65,23 @@ function! transformer#middleware#exec(m, data, state) "{{{
     " TODO
 
   elseif type == 'reg'
-    let ret = getreg(arg)
+    let d = getreg(arg)
 
   elseif type == 'buf'
-    let ret = transformer#util#buffer(arg, data)
+    let d = transformer#util#buffer(arg, data)
 
   elseif type == 'select'
-    let ret = transformer#util#selected_put(data)
+    let d = transformer#util#selected_put(data)
 
   elseif type == 'smart'
-    let ret = transformer#util#smart(a:state, a:data)
+    return transformer#util#smart#put(a:data)
 
   else
     throw type." isn't valid middleware"
 
   endif
-  return ret
+  let a:data.data = d
+  return a:data
 endfunction "}}}
 
 

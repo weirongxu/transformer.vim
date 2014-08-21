@@ -8,6 +8,7 @@ set cpo&vim
 
 
 function! transformer#util#pipe(cmd, cont) "{{{
+  " echo a:cont
   return transformer#util#pipe#run(a:cmd, a:cont)
 endfunction "}}}
 
@@ -17,15 +18,6 @@ function! transformer#util#buffer(arg, ...) "{{{
     return transformer#util#buffer#put(a:arg, a:1)
   else
     return transformer#util#buffer#get(a:arg)
-  endif
-endfunction "}}}
-
-
-function! transformer#util#smart(is_range, ...) "{{{
-  if a:0 > 0
-    return transformer#util#smart#put(a:is_range, a:1)
-  else
-    return transformer#util#smart#get(a:is_range)
   endif
 endfunction "}}}
 
