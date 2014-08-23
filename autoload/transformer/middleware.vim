@@ -28,12 +28,12 @@ endfunction "}}}
 
 " Execute Middle
 function! transformer#middleware#exec(data) "{{{
-  let data = a:data.data
+  let d = has_key(a:data, 'data') ? a:data.data : ''
   let type = a:data.middle.type
-  let arg = transformer#data#parse_arg(a:data.middle.get_arg(data), a:data)
+  let arg = transformer#data#parse_arg(a:data.middle.get_arg(d), a:data)
 
   if type == 'pipe'
-    let d = transformer#util#pipe(arg, data)
+    let d = transformer#util#pipe(arg, d)
 
   elseif type == 'func'
     exec 'let d=' arg
@@ -56,21 +56,22 @@ function! transformer#middleware#exec(data) "{{{
 
   elseif type == 'tmp'
     let a:data.path = g:transformer#tmp_dir.'/'.arg
-    let d = join(readfile(a:data.path), "\n")
+    let a:data.fname = fnamemodify(a:data.path, ':t')
+    call writefile(split(d, "\n"), a:data.path)
 
   elseif type == 'file'
-    let d = join(readfile(arg), "\n")
-    let a:data.fname =
-    let a:data.file = 'file'
+    let a:data.path = arg
+    let a:data.fname = fnamemodify(a:data.path, ':t')
+    call writefile(split(d, "\n"), a:data.path)
 
   elseif type == 'reg'
-    let d = getreg(arg)
+    let d = setreg(arg, d)
 
   elseif type == 'buf'
-    let d = transformer#util#buffer(arg, data)
+    let d = transformer#util#buffer(arg, d)
 
   elseif type == 'select'
-    let d = transformer#util#selected_put(data)
+    let d = transformer#util#selected_put(d)
 
   elseif type == 'smart'
     return transformer#util#smart#put(a:data)
@@ -79,6 +80,7 @@ function! transformer#middleware#exec(data) "{{{
     throw type." isn't valid middleware"
 
   endif
+
   let a:data.data = d
   let a:data.arg = arg
   return a:data

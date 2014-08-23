@@ -28,6 +28,7 @@ endfunction "}}}
 
 " Execute Source
 function! transformer#source#exec(data) "{{{
+  let d = has_key(a:data, 'data') ? a:data.data : ''
   let type = a:data.source.type
   let arg = transformer#data#parse_arg(a:data.source.get_arg(), a:data)
 
@@ -48,10 +49,22 @@ function! transformer#source#exec(data) "{{{
     let d = Process.system(arg)
 
   elseif type == 'tmp'
-    " TODO
+    let a:data.path = g:transformer#tmp_dir.'/'.arg
+    let a:data.fname = fnamemodify(a:data.path, ':t')
+    if filereadable(a:data.path)
+      let d = join(readfile(a:data.path), "\n")
+    else
+      let d = ''
+    endif
 
   elseif type == 'file'
-    " TODO
+    let a:data.path = arg
+    let a:data.fname = fnamemodify(a:data.path, ':t')
+    if filereadable(a:data.path)
+      let d = join(readfile(a:data.path), "\n")
+    else
+      let d = ''
+    endif
 
   elseif type == 'reg'
     let d = getreg(arg)
@@ -69,6 +82,7 @@ function! transformer#source#exec(data) "{{{
     throw type." isn't valid source"
 
   endif
+
   let a:data.data = d
   let a:data.arg = arg
   return a:data

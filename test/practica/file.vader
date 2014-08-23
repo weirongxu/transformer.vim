@@ -1,0 +1,21 @@
+# Given (command/jade/pipe1):
+#   line1
+#   line2
+#
+# Execute (FIXME: file/create):
+#   call transformer#cmd('TFfile1')
+#     \.src(S.buf('%'))
+#     \.exec(
+#     \   M.tmp('tmp'),
+#     \   M.sh('cat @{path}')
+#     \).exec(
+#     \   M.reg('a')
+#     \)
+#   call transformer#cmd('TFfile2')
+#     \.src(S.tmp('tmp'))
+#     \.exec(
+#     \   M.reg('b')
+#     \)
+#   TFfile1
+#   TFfile2
+#   AssertEqual getreg('a'), getreg('b')
