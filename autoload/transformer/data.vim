@@ -17,7 +17,12 @@ function! transformer#data#create() "{{{
   return s:Data
 endfunction "}}}
 
+function! transformer#data#parse_arg(arg, data) "{{{
+  " TODO parse arg
+  return a:arg
+endfunction "}}}
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-" vim: foldmethod=marker
+" vim: fdm=marker

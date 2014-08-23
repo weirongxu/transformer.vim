@@ -22,4 +22,4 @@ call transformer#util#check_cache_dir(g:transformer#tmp_dir)
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-" vim: foldmethod=marker
+" vim: fdm=marker

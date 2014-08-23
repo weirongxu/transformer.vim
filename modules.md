@@ -27,7 +27,7 @@
 
 ### function (func fn)
     M.func('expand("%:p")')
-    M.fn('func-name') == M.func('func-name(@{data})')
+    M.fn('func-name') == M.func('func-name({@data})')
 
     output: return
 
@@ -52,12 +52,12 @@
     M.tmp('filename.ext')
 
     write data to temporary file.
-    output: file content, @{path}, @{name}
+    output: file content, @{path}, @{fname}
 
     M.file('path/to/filename')
 
     write pipe message to specified file.
-    output: file content, @{path}, @{name}
+    output: file content, @{path}, @{fname}
 
 ### register (reg)
     M.reg()
@@ -93,8 +93,7 @@
 
 * normal
     * in: @{data}
-    * out: @{tmp_path}
 * tmp, file
     * out: @{path} @{name}
 * register
-    * out: @{reg}
+    * out: @{arg}

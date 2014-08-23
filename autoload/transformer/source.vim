@@ -29,17 +29,15 @@ endfunction "}}}
 " Execute Source
 function! transformer#source#exec(data) "{{{
   let type = a:data.source.type
-  let arg = a:data.source.get_arg()
+  let arg = transformer#data#parse_arg(a:data.source.get_arg(), a:data)
 
   if type == 'func'
-    " TODO get Interpolation
     exec 'let d=' arg
 
   elseif type == 'fn'
     exec 'let d=' arg '()'
 
   elseif type == 'exec'
-    " TODO get Interpolation
     exec 'let d=' arg
 
   elseif type == 'data'
@@ -72,10 +70,11 @@ function! transformer#source#exec(data) "{{{
 
   endif
   let a:data.data = d
+  let a:data.arg = arg
   return a:data
 endfunction "}}}
 
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-" vim: foldmethod=marker
+" vim: fdm=marker

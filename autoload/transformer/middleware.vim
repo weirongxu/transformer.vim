@@ -30,21 +30,18 @@ endfunction "}}}
 function! transformer#middleware#exec(data) "{{{
   let data = a:data.data
   let type = a:data.middle.type
-  let arg = a:data.middle.get_arg(data)
+  let arg = transformer#data#parse_arg(a:data.middle.get_arg(data), a:data)
 
   if type == 'pipe'
     let d = transformer#util#pipe(arg, data)
 
   elseif type == 'func'
-    " TODO get Interpolation
     exec 'let d=' arg
 
   elseif type == 'fn'
-    " TODO get Interpolation
     exec 'let d=' arg '()'
 
   elseif type == 'exec'
-    " TODO get Interpolation
     exec 'let d=' arg
 
   elseif type == 'data'
@@ -54,15 +51,17 @@ function! transformer#middleware#exec(data) "{{{
     throw "Null Middle Unknown Error"
 
   elseif type == 'sh'
-    " TODO get Interpolation
     let Process = vital#of('transformer').import('Process')
     let d = Process.system(arg)
 
   elseif type == 'tmp'
-    " TODO
+    let a:data.path = g:transformer#tmp_dir.'/'.arg
+    let d = join(readfile(a:data.path), "\n")
 
   elseif type == 'file'
-    " TODO
+    let d = join(readfile(arg), "\n")
+    let a:data.fname =
+    let a:data.file = 'file'
 
   elseif type == 'reg'
     let d = getreg(arg)
@@ -81,10 +80,11 @@ function! transformer#middleware#exec(data) "{{{
 
   endif
   let a:data.data = d
+  let a:data.arg = arg
   return a:data
 endfunction "}}}
 
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-" vim: foldmethod=marker
+" vim: fdm=marker
