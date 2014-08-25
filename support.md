@@ -14,12 +14,12 @@
 
 ## html
 
-* [x] html2jade  
-    * [visionmedia/jade]()  
-        `cat %s |　html2jade - --donotencode`
 * [x] jade2html  
-    * [donpark/html2jade]()  
+    * [visionmedia/jade]()  
         `cat %s | jade -- pretty`
+* [x] html2jade  
+    * [donpark/html2jade]()  
+        `cat %s |　html2jade - --donotencode`
 
 * [x] haml2html  
     * [haml/haml]()  
@@ -56,7 +56,7 @@
 
 * [x] coffee2js  
     * [jashkenas/coffee-script]()  
-        `cat %s | coffee -scpb`
+        `cat %s | coffee -scpb --no-header`
 * [x] js2coffee  
     * [js2coffee/js2coffee]()  
         `cat %s | js2coffee`
