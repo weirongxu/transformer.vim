@@ -67,8 +67,30 @@ function! s:activate(tf) "{{{
     execute 'nnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 0)<CR>'
     execute 'vnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 1)<CR>'
     " TODO register map
+    call s:activate_reg(arg)
   endif
   let s:TFidentity = s:TFidentity + 1
+endfunction "}}}
+
+
+let s:regs = '"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      \.'-:.%#=*+~/'
+function! s:activate_reg(map) "{{{
+  for r in split(s:regs, '\zs')
+    execute 'noremap <silent> "'.r.a:map.' :<C-u>call <SID>execute_reg('.s:TFidentity.',"'.r.'")<CR>'
+  endfor
+endfunction "}}}
+
+
+function! s:execute_reg(idx, name) "{{{
+  let S = transformer#source()
+  let data = transformer#data()
+
+  let tf = s:TFlist[a:idx]
+
+  let data.source = S.reg(a:name)
+
+  call s:execute_loop(data, tf)
 endfunction "}}}
 
 
@@ -77,10 +99,16 @@ function! s:execute(idx, is_range) "{{{
   let data.is_range = a:is_range
 
   let tf = s:TFlist[a:idx]
+
   let data.source = tf.source
 
-  let data = transformer#source#exec(data)
-  for m in tf.middle
+  call s:execute_loop(data, tf)
+endfunction "}}}
+
+
+function! s:execute_loop(data, tf) "{{{
+  let data = transformer#source#exec(a:data)
+  for m in a:tf.middle
     if transformer#util#type(m) == 'source'
       let data.source = m
       let data = transformer#source#exec(data)

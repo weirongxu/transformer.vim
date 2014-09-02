@@ -1,3 +1,10 @@
+Todo
+====
+
+Doing
+----
+* registers map
+* remove tf.src, Default use smart
 * String get Interpolation
     * eval "{&option}"
     * tmp path "@{path}" "@{fname}"
@@ -7,4 +14,7 @@
     * @{arg}
 * buffer get, put
 * (autoload/transformer/util/smart.vim s:getchar()) not have to user press entry quit.
-* Error log.
+
+Undecided
+----
+* ✗ Error log.
