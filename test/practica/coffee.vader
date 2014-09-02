@@ -23,3 +23,5 @@ Expect (command/js2coffee/pipe):
     console.dir n
     return
   n = 123
+
+# vim: fdm=indent

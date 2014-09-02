@@ -38,3 +38,5 @@ Execute (middleware/assert/reg1):
 Execute (middleware/assert/reg2):
   AssertEqual reg2.type, 'reg'
   AssertEqual reg2.args, ["'"]
+
+# vim: fdm=indent

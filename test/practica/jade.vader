@@ -79,3 +79,5 @@ Expect (map/html2jade/visual/smart %):
   div
     a(href='#')
       h1 title
+
+# vim: fdm=indent

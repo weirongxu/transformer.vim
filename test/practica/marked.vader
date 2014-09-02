@@ -72,3 +72,5 @@ Expect (command/exec/pipe1/marked result):
 # let tf2.middleOut = 'cmd'
 # call tf2.exec('*hello*', 'md2html,marked')
 # TF2
+
+# vim: fdm=indent
