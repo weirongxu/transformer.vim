@@ -1,0 +1,21 @@
+Execute (buffer/nl10):
+  call transformer#cmd('Bufnew')
+      \.src(S.buf('%'))
+      \.exec(
+      \   M.buf('nl10')
+      \)
+  " let curr_winnr = bufwinnr('%')
+  :Bufnew
+  AssertEqual winwidth('%'), 10
+  :q
+
+Execute (buffer/nl10&):
+  call transformer#cmd('Bufnew')
+      \.src(S.buf('%'))
+      \.exec(
+      \   M.buf('nl10&')
+      \)
+  let curr_winnr = bufwinnr('%')
+  :Bufnew
+  AssertEqual winwidth('__TEXT_TRANSFORMER__'), 10
+  :wincmd o

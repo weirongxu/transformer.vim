@@ -6,5 +6,6 @@ Include (coffee): practica/file.vader
 Include (marked): practica/marked.vader
 Include (jade): practica/jade.vader
 Include (coffee): practica/coffee.vader
+Include (buffer): buffer.vader
 
 # vim: fdm=indent

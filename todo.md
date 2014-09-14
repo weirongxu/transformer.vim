@@ -12,7 +12,6 @@ Doing
     * data @{data}
     * {@fpath}
     * @{arg}
-* buffer get, put
 * (autoload/transformer/util/smart.vim s:getchar()) not have to user press entry quit.
 
 Undecided

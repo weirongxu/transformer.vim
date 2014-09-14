@@ -67,7 +67,7 @@ function! s:activate(tf) "{{{
     execute 'nnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 0)<CR>'
     execute 'vnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 1)<CR>'
     " TODO register map
-    call s:activate_reg(arg)
+    " call s:activate_reg(arg)
   endif
   let s:TFidentity = s:TFidentity + 1
 endfunction "}}}

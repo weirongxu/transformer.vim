@@ -15,7 +15,7 @@ function! transformer#util#smart#get(data) "{{{
   if a:data.is_range
     let src = s:S.select()
   else
-    let c = s:getchar(join([
+    let c = s:getchar_select(join([
           \  'Get data from:',
           \  '  %: whole buffer',
           \  '  b: buffer',
@@ -79,6 +79,15 @@ endfunction "}}}
 
 
 function! s:getchar(msg) "{{{
+  " FIXME not have to user press entry quit.
+  try
+    echo a:msg
+    return nr2char(getchar())
+  finally
+  endtry
+endfunction "}}}
+
+function! s:getchar_select(msg) "{{{
   " FIXME not have to user press entry quit.
   try
     echo a:msg
