@@ -12,7 +12,7 @@
 
 ### buf
 
-### select
+### visual
 
 ### smart
 
@@ -80,8 +80,8 @@
     M.buf('nd5')                    out: new buffer in downward and height is 5
     M.buf('nl5')                    out: new buffer in leftward and width is 5
 
-### select
-    M.select()
+### visual
+    M.visual()
 
 ### smart
 

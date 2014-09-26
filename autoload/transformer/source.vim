@@ -15,7 +15,7 @@ let s:Source = transformer#ware('source', [
       \   'tmp', 'file',
       \   'reg',
       \   'buf',
-      \   'select',
+      \   'visual',
       \   'smart',
       \ ])
 
@@ -72,7 +72,7 @@ function! transformer#source#exec(data) "{{{
   elseif type == 'buf'
     let d = transformer#util#buffer(arg)
 
-  elseif type == 'select'
+  elseif type == 'visual'
     let d = transformer#util#selected_get()
 
   elseif type == 'smart'

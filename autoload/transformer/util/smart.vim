@@ -13,9 +13,9 @@ let s:M = transformer#middleware#create()
 " Smart Get
 function! transformer#util#smart#get(data) "{{{
   if a:data.is_range
-    let src = s:S.select()
+    let src = s:S.visual()
   else
-    let c = s:getchar_select(join([
+    let c = s:select_list([
           \  'Get data from:',
           \  '  %: whole buffer',
           \  '  b: buffer',
@@ -25,7 +25,7 @@ function! transformer#util#smart#get(data) "{{{
           \  '  f: file',
           \  '  r: register',
           \  '> Select: ',
-          \], "\n"))
+          \])
     let src = s:source(c)
   endif
   let a:data.smart_src = src
@@ -50,7 +50,7 @@ endfunction "}}}
 " Smart Put
 function! transformer#util#smart#put(data) "{{{
   if a:data.is_range
-    let mid = s:M.select()
+    let mid = s:M.visual()
   elseif a:data.smart_src.type == 'buf'
     let mid = s:buf_src2mid(a:data.smart_src)
   else
@@ -87,10 +87,10 @@ function! s:getchar(msg) "{{{
   endtry
 endfunction "}}}
 
-function! s:getchar_select(msg) "{{{
+function! s:select_list(list) "{{{
   " FIXME not have to user press entry quit.
   try
-    echo a:msg
+    echo join(a:list, "\n")
     return nr2char(getchar())
   finally
   endtry

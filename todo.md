@@ -5,6 +5,7 @@ Doing
 ----
 * registers map
 * remove tf.src, Default use smart
+* add selector middle, for select middlewares.
 * String get Interpolation
     * eval "{&option}"
     * tmp path "@{path}" "@{fname}"

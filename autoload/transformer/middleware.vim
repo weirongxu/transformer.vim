@@ -16,7 +16,7 @@ let s:Middleware = transformer#ware('middle', [
       \   'tmp', 'file',
       \   'reg',
       \   'buf',
-      \   'select',
+      \   'visual',
       \   'smart',
       \ ])
 
@@ -70,7 +70,7 @@ function! transformer#middleware#exec(data) "{{{
   elseif type == 'buf'
     let d = transformer#util#buffer(arg, d)
 
-  elseif type == 'select'
+  elseif type == 'visual'
     let d = transformer#util#selected_put(d)
 
   elseif type == 'smart'
