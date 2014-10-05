@@ -62,45 +62,28 @@ function! s:activate(tf) "{{{
   let s:TFlist[s:TFidentity] = a:tf
   let arg = a:tf.arg
   if a:tf.type == 'cmd'
-    execute 'command! -range=0 -count' arg 'call <SID>execute('.s:TFidentity.', <count>)'
+    execute 'command! -range=0 -count' arg 'call <SID>execute('.s:TFidentity.', <count>, 0)'
   elseif a:tf.type == 'map'
-    execute 'nnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 0)<CR>'
-    execute 'vnoremap <silent>' arg ':<C-u>call <SID>execute('.s:TFidentity.', 1)<CR>'
-    " TODO register map
-    " call s:activate_reg(arg)
+    execute 'nnoremap <silent>   '.arg.' :<C-u>call <SID>execute('.s:TFidentity.', 0, 0)<CR>'
+    execute 'nnoremap <silent> ""'.arg.' :<C-u>call <SID>execute('.s:TFidentity.', 0, 1)<CR>'
+    execute 'vnoremap <silent>   '.arg.' :<C-u>call <SID>execute('.s:TFidentity.', 1, 0)<CR>'
   endif
   let s:TFidentity = s:TFidentity + 1
 endfunction "}}}
 
 
-let s:regs = '"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      \.'-:.%#=*+~/'
-function! s:activate_reg(map) "{{{
-  for r in split(s:regs, '\zs')
-    execute 'noremap <silent> "'.r.a:map.' :<C-u>call <SID>execute_reg('.s:TFidentity.',"'.r.'")<CR>'
-  endfor
-endfunction "}}}
-
-
-function! s:execute_reg(idx, name) "{{{
+function! s:execute(idx, is_range, unnamed_reg) "{{{
   let S = transformer#source()
-  let data = transformer#data()
 
-  let tf = s:TFlist[a:idx]
-
-  let data.source = S.reg(a:name)
-
-  call s:execute_loop(data, tf)
-endfunction "}}}
-
-
-function! s:execute(idx, is_range) "{{{
   let data = transformer#data()
   let data.is_range = a:is_range
 
   let tf = s:TFlist[a:idx]
-
-  let data.source = tf.source
+  if a:unnamed_reg || v:register != '"'
+    let data.source = S.reg(v:register)
+  else
+    let data.source = tf.source
+  endif
 
   call s:execute_loop(data, tf)
 endfunction "}}}

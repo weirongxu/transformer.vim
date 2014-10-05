@@ -15,7 +15,7 @@ function! transformer#util#smart#get(data) "{{{
   if a:data.is_range
     let src = s:S.visual()
   else
-    let c = s:select_list([
+    let c = s:select_list(
           \  'Get data from:',
           \  '  %: whole buffer',
           \  '  b: buffer',
@@ -25,7 +25,7 @@ function! transformer#util#smart#get(data) "{{{
           \  '  f: file',
           \  '  r: register',
           \  '> Select: ',
-          \])
+          \)
     let src = s:source(c)
   endif
   let a:data.smart_src = src
@@ -79,7 +79,6 @@ endfunction "}}}
 
 
 function! s:getchar(msg) "{{{
-  " FIXME not have to user press entry quit.
   try
     echo a:msg
     return nr2char(getchar())
@@ -87,10 +86,10 @@ function! s:getchar(msg) "{{{
   endtry
 endfunction "}}}
 
-function! s:select_list(list) "{{{
+function! s:select_list(...) "{{{
   " FIXME not have to user press entry quit.
   try
-    echo join(a:list, "\n")
+    echo join(a:000, "\n")
     return nr2char(getchar())
   finally
   endtry

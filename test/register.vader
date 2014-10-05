@@ -1,0 +1,38 @@
+# Test register
+
+# Execute (register):
+#   call transformer#cmd("Reg")
+#       \.src(S.buf('%'))
+#       \.exec(M.reg('"'))
+
+Execute (register/"):
+  call transformer#map("\<c-t>1")
+      \.src(S.buf('%'))
+      \.exec(
+      \   M.reg('"'),
+      \   S.data(''),
+      \   M.buf('%')
+      \)
+  call transformer#map("\<c-t>2")
+      \.src(S.smart())
+      \.exec(
+      \   M.buf('%')
+      \)
+
+Given (register/"1):
+  test
+
+Do (register/"1):
+  \<c-t>1
+
+Expect (register/"1):
+  
+
+Given (register/"2):
+  test
+
+Do (register/"2):
+  \<c-t>1""\<c-t>2
+
+Expect (register/"2):
+  test

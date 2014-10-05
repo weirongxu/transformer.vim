@@ -65,7 +65,7 @@ function! transformer#middleware#exec(data) "{{{
     call writefile(split(d, "\n"), a:data.path)
 
   elseif type == 'reg'
-    let d = setreg(arg, d)
+    call setreg(arg, d)
 
   elseif type == 'buf'
     let d = transformer#util#buffer(arg, d)
