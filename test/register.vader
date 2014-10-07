@@ -1,5 +1,6 @@
 # Test register
 
+# waiting for string interpolation
 # Execute (register):
 #   call transformer#cmd("Reg")
 #       \.src(S.buf('%'))
