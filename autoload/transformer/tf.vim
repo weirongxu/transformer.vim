@@ -34,6 +34,7 @@ function! s:TF.subcmd(scmd, ...) "{{{
 endfunction "}}}
 
 
+" TODO deprecated
 function! s:TF.src(src) "{{{
   let self.source = a:src
   return self
@@ -44,15 +45,17 @@ let s:TF.is_activate = 0
 let s:TF.middle = []
 
 
-function! s:TF.exec(...) "{{{
+function! s:TF.stream(...) "{{{
   if transformer#util#type(a:1) == 'source'
     let self.source = a:1
     let self.middle = self.middle + a:000[1:]
   else
     let self.middle = self.middle + a:000
   endif
-  call s:activate(self)
-  let self.is_activate = 1
+  if !self.is_activate
+    call s:activate(self)
+    let self.is_activate = 1
+  endif
   return self
 endfunction "}}}
 

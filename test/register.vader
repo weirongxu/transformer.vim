@@ -4,19 +4,19 @@
 # Execute (register):
 #   call transformer#cmd("Reg")
 #       \.src(S.buf('%'))
-#       \.exec(M.reg('"'))
+#       \.stream(M.reg('"'))
 
 Execute (register/"):
   call transformer#map("\<c-t>1")
       \.src(S.buf('%'))
-      \.exec(
+      \.stream(
       \   M.reg('"'),
       \   S.data(''),
       \   M.buf('%')
       \)
   call transformer#map("\<c-t>2")
       \.src(S.smart())
-      \.exec(
+      \.stream(
       \   M.buf('%')
       \)
 

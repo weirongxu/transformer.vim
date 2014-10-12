@@ -15,6 +15,7 @@ function! transformer#map(map) "{{{
   return transformer#tf#map(a:map)
 endfunction "}}}
 
+
 function! transformer#source() "{{{
   return transformer#source#create()
 endfunction "}}}
@@ -22,6 +23,7 @@ endfunction "}}}
 function! transformer#middle() "{{{
   return transformer#middleware#create()
 endfunction "}}}
+
 
 function! transformer#data() "{{{
   return transformer#data#create()

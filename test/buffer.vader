@@ -1,7 +1,7 @@
 Execute (buffer/nl10):
   call transformer#cmd('Bufnew')
       \.src(S.buf('%'))
-      \.exec(
+      \.stream(
       \   M.buf('nl10')
       \)
   " let curr_winnr = bufwinnr('%')
@@ -12,7 +12,7 @@ Execute (buffer/nl10):
 Execute (buffer/nl10&):
   call transformer#cmd('Bufnew')
       \.src(S.buf('%'))
-      \.exec(
+      \.stream(
       \   M.buf('nl10&')
       \)
   let curr_winnr = bufwinnr('%')

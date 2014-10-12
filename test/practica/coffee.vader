@@ -10,7 +10,7 @@ Given (command/js2coffee/pipe):
 Execute (command/js2coffee/pipe):
   call transformer#cmd('Js2coffee')
       \.src(S.smart())
-      \.exec(
+      \.stream(
       \   M.pipe('js2coffee'),
       \   M.smart()
       \)

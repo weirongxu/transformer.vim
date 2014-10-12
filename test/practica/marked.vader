@@ -1,21 +1,8 @@
 # Marked
 
-# TODO
-# Execute (command:exec:pipe):
-#   let tf = transformer#cmd('TF')
-#   let tf.middleType = 'pipe'
-#   let tf.middleOut = 'cmd'
-#   call tf.exec('*hello*', 'md2html,marked')
-#   TF
-#   let tf2 = transformer#cmd('TF2')
-#   let tf2.middleType = 'pipe'
-#   let tf2.middleOut = 'cmd'
-#   call tf2.exec('*hello*', 'md2html,marked')
-#   TF2
-
 Execute (command/exec/pipe1):
   let marked = M.pipe('marked')
-  call transformer#cmd('Marked').exec(
+  call transformer#cmd('Marked').stream(
     \   S.data('*hello*'),
     \   marked,
     \   M.buf('%')
@@ -32,7 +19,7 @@ Given (command/exec/pipe2):
 Execute (command/exec/pipe2):
   call transformer#cmd('Marked')
     \.src(S.data('second line.'))
-    \.exec(M.buf('%2'))
+    \.stream(M.buf('%2'))
   Marked
 
 Expect (marked result):
@@ -46,7 +33,7 @@ Expect (marked result):
 # Execute (command/exec/pipe2):
 #   call transformer#cmd('Marked')
 #     \.src(S.data('second line.'))
-#     \.exec(M.buf('%3'))
+#     \.stream(M.buf('%3'))
 #   Marked
 #
 # Expect (marked result):
@@ -58,19 +45,12 @@ Expect (marked result):
 Execute (command/exec/pipe3):
   call transformer#cmd('Marked')
     \.src(S.data('*hello*'))
-    \.exec(marked)
-    \.exec(M.buf('%'))
+    \.stream(marked)
+    \.stream(M.buf('%'))
   Marked
 
 Expect (command/exec/pipe1/marked result):
   <p><em>hello</em></p>
   
-
-
-# let tf2 = transformer#cmd('TF2')
-# let tf2.middleType = 'pipe'
-# let tf2.middleOut = 'cmd'
-# call tf2.exec('*hello*', 'md2html,marked')
-# TF2
 
 # vim: fdm=indent

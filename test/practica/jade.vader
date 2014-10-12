@@ -8,7 +8,7 @@ Given (command/jade/pipe1):
 Execute (command/jade/pipe1):
   call transformer#cmd('Jade')
     \.src(S.buf('%'))
-    \.exec(
+    \.stream(
     \   M.pipe('jade --pretty'),
     \   M.buf('%')
     \)
@@ -27,7 +27,7 @@ Given (map/html2jade/visual):
 Execute (map/html2jade/visual):
   call transformer#map("\<c-t>")
     \.src(S.buf('%'))
-    \.exec(
+    \.stream(
     \   M.pipe('html2jade - --donotencode --bodyless'),
     \   M.buf('%')
     \)
@@ -50,7 +50,7 @@ Given (map/html2jade/visual smart):
 Execute (map/html2jade/visual smart):
   call transformer#map("\<c-t>")
     \.src(S.smart())
-    \.exec(
+    \.stream(
     \   M.pipe('html2jade - --donotencode --bodyless'),
     \   M.smart('%')
     \)
