@@ -22,13 +22,6 @@ function! transformer#util#buffer(arg, ...) "{{{
 endfunction "}}}
 
 
-function! transformer#util#check_cache_dir(dir) "{{{
-  if !isdirectory(a:dir)
-    call mkdir(a:dir, "p")
-  endif
-endfunction "}}}
-
-
 function! transformer#util#type(obj) "{{{
   if has_key(a:obj, '_type')
     return a:obj._type
