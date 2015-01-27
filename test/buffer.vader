@@ -1,3 +1,5 @@
+Include: include/init.vader
+
 Execute (buffer/nl10):
   call transformer#cmd('Bufnew')
       \.src(S.buf('%'))

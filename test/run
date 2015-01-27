@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd $(dirname $BASH_SOURCE)
+
+vim -Nu <(cat << EOF
+syntax on
+for dep in ['vader.vim']
+  execute 'set rtp+=' . finddir(dep, expand('~/.vim').'/**')
+endfor
+set rtp+=..
+map Q :qa<CR>
+EOF) +Vader*

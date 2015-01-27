@@ -1,12 +1,12 @@
-Execute (create/source middle):
-  let M = transformer#middle()
-  let S = transformer#source()
-
-Include (coffee): practica/file.vader
-Include (marked): practica/marked.vader
-Include (jade): practica/jade.vader
-Include (coffee): practica/coffee.vader
-Include (buffer): buffer.vader
-Include (register): register.vader
+# Execute (create/source middle):
+#   let M = transformer#middle()
+#   let S = transformer#source()
+#
+# Include (coffee): practica/file.vader
+# Include (marked): practica/marked.vader
+# Include (jade): practica/jade.vader
+# Include (coffee): practica/coffee.vader
+# Include (buffer): buffer.vader
+# Include (register): register.vader
 
 # vim: fdm=indent

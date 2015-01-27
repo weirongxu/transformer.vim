@@ -1,6 +1,0 @@
-# Tests for transformer.
-
-Include (Generate): generate.vader
-Include (Practica): practica.vader
-
-# vim: fdm=indent

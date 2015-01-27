@@ -1,4 +1,5 @@
 # Test register
+Include: include/init.vader
 
 # waiting for string interpolation
 # Execute (register):

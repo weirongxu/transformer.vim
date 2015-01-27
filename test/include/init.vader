@@ -1,0 +1,3 @@
+Execute (create/source,middle):
+  let M = transformer#middle()
+  let S = transformer#source()
